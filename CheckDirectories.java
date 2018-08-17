@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CheckDirectories {
     Scanner sc = new Scanner(System.in);
-    void listFiles(String DirectoryName){
+    void Findfiles(String DirectoryName){
 
         String str = new String();
         str = sc.nextLine();
@@ -14,7 +14,7 @@ public class CheckDirectories {
         for (File file : fList){
             if(str.equals(file.getName())){
                 b = true;
-                System.out.println("file found");
+                System.out.println("file found at path "+DirectoryName+"/"+str);
                 return;
             }
         }
@@ -27,6 +27,6 @@ public class CheckDirectories {
 
         CheckDirectories cd = new CheckDirectories();
 
-        cd.listFiles(dir);
+        cd.FindFiles(dir);
     }
 }
