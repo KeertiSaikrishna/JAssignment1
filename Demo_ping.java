@@ -1,15 +1,17 @@
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Demo_ping{
-    public static void PingHost(String ip)throws UnknownHostException, IOException, InterruptedException{
-        InetAddress add = InetAddress.getByName(ip);
-        long st = System.currentTimeMillis();
-        //System.out.println(st);
+    public static void PingHost()throws IOException, InterruptedException{
 
-        if(add.isReachable(5000)) {
+        Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.youtube.com");
+        long st = System.currentTimeMillis();
+
+        int returnVal = p1.waitFor();
+        boolean reachable = (returnVal==0);
+
+        //System.out.println(st);
+        if(reachable) {
             //Thread.sleep(10);
             long et = System.currentTimeMillis();
             //System.out.println(et);
@@ -19,12 +21,16 @@ public class Demo_ping{
         else
             System.out.println("host not reachable");
     }
-    public static void main(String[] args)throws UnknownHostException, IOException ,InterruptedException{
+    public static void main(String[] args){
         Scanner sc= new Scanner(System.in);
 
-        String ip=sc.nextLine();
+        //String ip=sc.nextLine();
         //System.out.println(ip);
-
-        PingHost(ip);
+        try {
+            PingHost();
+        }
+        catch (IOException | InterruptedException exp){
+            System.out.println(exp);
+        }
     }
 }
