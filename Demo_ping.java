@@ -1,12 +1,12 @@
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Demo_ping{
-    public static void PingHost()throws IOException, InterruptedException{
+    public static void PingHost(String ip)throws  IOException, InterruptedException{
 
-        Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.youtube.com");
+        Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 " + ip);
         long st = System.currentTimeMillis();
-
         int returnVal = p1.waitFor();
         boolean reachable = (returnVal==0);
 
@@ -23,11 +23,11 @@ public class Demo_ping{
     }
     public static void main(String[] args){
         Scanner sc= new Scanner(System.in);
-
-        //String ip=sc.nextLine();
+        System.out.println("enter host name: Example:google.com");
+        String ip=sc.nextLine();
         //System.out.println(ip);
         try {
-            PingHost();
+            PingHost(ip);
         }
         catch (IOException | InterruptedException exp){
             System.out.println(exp);
