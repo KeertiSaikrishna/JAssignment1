@@ -1,6 +1,7 @@
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CheckDirectories {
     Scanner sc = new Scanner(System.in);
@@ -8,17 +9,21 @@ public class CheckDirectories {
 
         String str = new String();
         str = sc.nextLine();
+        String temp = new String();
         File directory = new File(DirectoryName);
-        boolean b = false;
+        boolean b = true;
         File[] fList = directory.listFiles();
         for (File file : fList){
-            if(str.equals(file.getName())){
-                b = true;
-                System.out.println("file found at path "+DirectoryName+"/"+str);
-                return;
+            temp = file.getName();
+            Pattern p = Pattern.compile(".*"+str+".*");
+            Matcher m =p.matcher(temp);
+            while (m.find()){
+                b = false;
+                System.out.println(file.getAbsolutePath());
             }
         }
-        System.out.println("file not found");
+        if(b)
+            System.out.println("file not found");
     }
 
     public static void main(String[] args) {
@@ -27,6 +32,6 @@ public class CheckDirectories {
 
         CheckDirectories cd = new CheckDirectories();
 
-        cd.FindFiles(dir);
+        cd.Findfiles(dir);
     }
 }
